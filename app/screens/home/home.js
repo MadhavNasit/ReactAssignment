@@ -53,6 +53,7 @@ const Home = ({ navigation }) => {
         <FlatList
           data={Data_List}
           renderItem={renderItem}
+          contentContainerStyle={{ flexGrow: 1 }}
           keyExtractor={(item, index) => index.toString()}
           ListEmptyComponent={EmptyListComponentView()}
           ListFooterComponent={FooterView()}

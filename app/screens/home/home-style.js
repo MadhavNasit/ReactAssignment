@@ -12,7 +12,7 @@ const HomeStyle = StyleSheet.create({
     backgroundColor: color.white,
     borderTopRightRadius: 40,
     borderTopLeftRadius: 40,
-    padding: 20,
+    paddingVertical: 20,
   },
   imageView: {
     height: 250,
@@ -40,10 +40,11 @@ const HomeStyle = StyleSheet.create({
   },
   flatListView: {
     marginBottom: 14,
+    paddingHorizontal: 20
   },
   // Footer Style
   footerView: {
-    flex: 1,
+    flexGrow: 1,
     justifyContent: 'center',
     flexDirection: 'row',
     marginTop: 15,
@@ -58,7 +59,6 @@ const HomeStyle = StyleSheet.create({
   emptyListView: {
     flex: 1,
     justifyContent: 'center',
-    height: 700,
   },
   textEmptyList: {
     fontWeight: 'bold',
