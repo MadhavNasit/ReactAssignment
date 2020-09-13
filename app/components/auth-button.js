@@ -19,12 +19,13 @@ const AuthButton = (props) => {
 const Styles = StyleSheet.create({
   // Button View
   buttonView: {
-    // flex: 1, 
+    // flex: 1,
     justifyContent: 'flex-end',
     marginBottom: 20,
+    backgroundColor: color.white,
   },
   button: {
-    backgroundColor: 'blue',
+    backgroundColor: color.button,
     marginHorizontal: 25,
     paddingVertical: 13,
     borderRadius: 60

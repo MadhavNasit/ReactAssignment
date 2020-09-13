@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { SafeAreaView, View, Text, TextInput, Keyboard, StatusBar, ScrollView } from 'react-native';
 import SignUpStyle from '../sign-up/sign-up-style';
-import AuthHeader from '../../components/auth-header';
 import { validateEmail, validatePassword } from '../../utils';
 import AuthButton from '../../components/auth-button';
 import { color } from '../../theme';
+import CustomHeader from '../../components/auth-header';
+import AuthHeader from '../../components/auth-header';
 
 const ForgotPassword = () => {
 
@@ -56,8 +57,8 @@ const ForgotPassword = () => {
   return (
     <SafeAreaView style={SignUpStyle.safeAreaView}>
       <StatusBar translucent barStyle="light-content" />
+      <AuthHeader headingText={'Forgot Password'} />
       <View style={SignUpStyle.mainView}>
-        <AuthHeader headingText={'Forgot Password'} />
         {FormView()}
         <AuthButton
           buttonText={'Send Mail'}

@@ -5,7 +5,7 @@ import { useRoute, useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { icons } from '../icons/index';
 
-const AuthHeader = (props) => {
+const CustomHeader = (props) => {
   const { headingText } = props;
   const route = useRoute();
   const navigation = useNavigation();
@@ -15,7 +15,7 @@ const AuthHeader = (props) => {
       <View style={Styles.headerView}>
         <View style={Styles.innerView}>
           <View style={Styles.backButtonView}>
-            {route.name != 'LogIn' ?
+            {route.name != 'Home' ?
               <TouchableOpacity
                 onPress={() => navigation.goBack()}
               >
@@ -33,11 +33,6 @@ const AuthHeader = (props) => {
           </View>
           <View style={Styles.thirdView}></View>
         </View>
-      </View>
-      <View style={Styles.imageLogo}>
-        <Image
-          source={require('../images/UserLogo.png')}
-          style={Styles.imageFit}></Image>
       </View>
     </>
   );
@@ -73,24 +68,6 @@ const Styles = StyleSheet.create({
     fontWeight: 'bold',
     color: color.headerText,
   },
-  imageLogo: {
-    alignSelf: 'center',
-    height: 110,
-    width: 110,
-    marginBottom: -55,
-    zIndex: 1,
-    borderRadius: 55,
-    overflow: 'hidden',
-    borderColor: color.primary,
-    borderWidth: 6,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  imageFit: {
-    height: '120%',
-    width: "120%",
-    resizeMode: 'cover',
-  },
 });
 
-export default AuthHeader;
+export default CustomHeader;

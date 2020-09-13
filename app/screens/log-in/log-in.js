@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { SafeAreaView, View, Text, TextInput, Keyboard, StatusBar, ScrollView } from 'react-native';
 import SignUpStyle from '../sign-up/sign-up-style';
-import AuthHeader from '../../components/auth-header';
 import { validateEmail, validatePassword } from '../../utils';
 import AuthButton from '../../components/auth-button';
 import { color } from '../../theme';
+import CustomHeader from '../../components/auth-header';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import LogInStyle from './log-in-style';
+import AuthHeader from '../../components/auth-header';
 
-const LogIn = () => {
+const LogIn = ({ navigation }) => {
 
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
@@ -87,12 +90,21 @@ const LogIn = () => {
   return (
     <SafeAreaView style={SignUpStyle.safeAreaView}>
       <StatusBar translucent barStyle="light-content" />
+      <AuthHeader headingText={'Log In'} />
       <View style={SignUpStyle.mainView}>
-        <AuthHeader headingText={'Log In'} />
         {FormView()}
         <AuthButton
           buttonText={'Log In'}
-          ValidateFn={() => FormValidation()} />
+          ValidateFn={() => FormValidation()}
+        />
+        <View style={LogInStyle.bottomView}>
+          <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
+            <Text style={LogInStyle.bottomLink}>Forgot Password</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+            <Text style={LogInStyle.bottomLink}>Create a new Account</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </SafeAreaView>
   );

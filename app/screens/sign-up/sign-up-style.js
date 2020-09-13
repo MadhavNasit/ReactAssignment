@@ -10,11 +10,15 @@ const SignUpStyle = StyleSheet.create({
   mainView: {
     flex: 1,
     backgroundColor: color.white,
+    borderTopRightRadius: 40,
+    borderTopLeftRadius: 40,
+    padding: 20,
+    paddingTop: 50
   },
   formView: {
-    // flex: 6,
-    paddingTop: 60,
-    paddingHorizontal: 25
+    paddingTop: 30,
+    paddingHorizontal: 25,
+    backgroundColor: color.white,
   },
   // Form View Styles
   inputView: {
@@ -34,7 +38,10 @@ const SignUpStyle = StyleSheet.create({
     color: color.errorText,
     textAlign: 'right',
   },
-
+  bottomView: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  }
 
 });
 

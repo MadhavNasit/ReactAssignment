@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { SafeAreaView, View, Text, TextInput, Keyboard, StatusBar, ScrollView } from 'react-native';
 import SignUpStyle from './sign-up-style';
-import AuthHeader from '../../components/auth-header';
 import { validateName, validateEmail, validatePassword, validateSelect, validateDate } from '../../utils';
 import AuthButton from '../../components/auth-button';
 import PickerSelect from '../../components/picker-select';
 import DateSelect from '../../components/date-picker';
 import { color } from '../../theme';
+import CustomHeader from '../../components/auth-header';
+import AuthHeader from '../../components/auth-header';
 
 const Gender_List = [
   {
@@ -207,8 +208,8 @@ const SignUp = () => {
   return (
     <SafeAreaView style={SignUpStyle.safeAreaView}>
       <StatusBar barStyle="light-content" />
+      <AuthHeader headingText={'Sign Up'} />
       <View style={SignUpStyle.mainView}>
-        <AuthHeader headingText={'Sign Up'} />
         {FormView()}
         <AuthButton
           buttonText={'Create User'}
