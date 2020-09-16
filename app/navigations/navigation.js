@@ -6,12 +6,17 @@ import AuthNavigation from './auth-navigation';
 import AppNavigation from './app-navigation';
 import { AuthContext } from './context';
 import { storeData, ClearAsyncStorage } from '../utils';
+import SplashScreen from 'react-native-splash-screen';
 
 const Stack = createStackNavigator();
 
 const Navigation = () => {
 
   const [userToken, setUserToken] = React.useState();
+
+  React.useEffect(() => {
+    SplashScreen.hide();
+  }, [])
 
   const authContext = React.useMemo(() => {
     return {

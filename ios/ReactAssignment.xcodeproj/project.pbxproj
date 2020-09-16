@@ -148,7 +148,6 @@
 				C59CBDF95882D44B240AB0FC /* Pods-ReactAssignment-tvOSTests.debug.xcconfig */,
 				A88CBB637D5158249AABA25F /* Pods-ReactAssignment-tvOSTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
