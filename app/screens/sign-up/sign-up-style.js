@@ -1,10 +1,11 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, StatusBar } from 'react-native';
 import { color } from '../../theme';
 
 const SignUpStyle = StyleSheet.create({
   safeAreaView: {
     flex: 1,
-    backgroundColor: color.primary
+    backgroundColor: color.primary,
+    paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight
     // justifyContent: 'space-around',
   },
   mainView: {

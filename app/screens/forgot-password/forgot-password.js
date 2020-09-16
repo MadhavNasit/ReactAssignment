@@ -7,7 +7,7 @@ import { color } from '../../theme';
 import CustomHeader from '../../components/auth-header';
 import AuthHeader from '../../components/auth-header';
 
-const ForgotPassword = () => {
+const ForgotPassword = ({ navigation }) => {
 
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
@@ -17,7 +17,7 @@ const ForgotPassword = () => {
     let isEmailError = EmailValidation();
 
     if (isPasswordError) {
-      console.log("Sucess!");
+      navigation.navigate('AuthNavigation', { screen: 'LogIn' });
     }
   }
 
@@ -56,7 +56,7 @@ const ForgotPassword = () => {
 
   return (
     <SafeAreaView style={SignUpStyle.safeAreaView}>
-      <StatusBar translucent barStyle="light-content" />
+      <StatusBar backgroundColor={color.primary} barStyle="light-content" />
       <AuthHeader headingText={'Forgot Password'} />
       <View style={SignUpStyle.mainView}>
         {FormView()}

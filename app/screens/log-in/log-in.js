@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
-import { SafeAreaView, View, Text, TextInput, Keyboard, StatusBar, ScrollView } from 'react-native';
+import React, { useState, useContext, useEffect } from 'react';
+import { SafeAreaView, View, Text, TextInput, Keyboard, StatusBar, ScrollView, Alert } from 'react-native';
 import SignUpStyle from '../sign-up/sign-up-style';
 import { validateEmail, validatePassword } from '../../utils';
 import AuthButton from '../../components/auth-button';
 import { color } from '../../theme';
-import CustomHeader from '../../components/auth-header';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import LogInStyle from './log-in-style';
 import AuthHeader from '../../components/auth-header';
+import { AuthContext } from '../../navigations/context';
+import AsyncStorage from '@react-native-community/async-storage';
 
+const USER_LIST = [];
 const LogIn = ({ navigation }) => {
 
   const [email, setEmail] = useState('');
@@ -16,16 +18,63 @@ const LogIn = ({ navigation }) => {
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
+  const { signIn } = useContext(AuthContext);
+
+
+  useEffect(() => {
+    getUserArray();
+  }, []);
+
+  // Get User Array from Async Storage
+  const getUserArray = async () => {
+    const value = await AsyncStorage.getItem('@UserArray');
+    let userArray = JSON.parse(value);
+    if (userArray != null) {
+      userArray.forEach(element => {
+        USER_LIST.push(element);
+      });
+    }
+  }
+
+  // Validate Form fields
   const FormValidation = () => {
     Keyboard.dismiss();
     let isEmailError = EmailValidation();
     let isPasswordError = PasswordValidation();
 
     if (isPasswordError && isEmailError) {
-      console.log("Sucess!");
+      return true;
+    } else {
+      return false;
     }
   }
 
+  // Authenticate User from UserList array
+  const AuthenticateUser = () => {
+    let isFormValidated = FormValidation();
+    let userObject;
+    console.log('LogIn', USER_LIST);
+    if (isFormValidated) {
+      userObject = USER_LIST.filter((item) => {
+        console.log(password);
+        return email.toLowerCase() == item.email && password == item.password;
+      });
+      console.log('Result', userObject);
+      if (userObject.length == 0) {
+        console.log('Unsuceesfull!');
+        Alert.alert(
+          'Invalid Inputs!!',
+          'Please enter valid username and password',
+        );
+      }
+      else {
+        signIn(userObject[0]);
+      }
+    }
+
+  }
+
+  // Validate Email
   const EmailValidation = () => {
     let emailData = validateEmail(email);
     setEmailError(emailData);
@@ -36,6 +85,8 @@ const LogIn = ({ navigation }) => {
       return false;
     }
   }
+
+  // Validate Password
   const PasswordValidation = () => {
     let passwordData = validatePassword(password);
     setPasswordError(passwordData);
@@ -47,7 +98,7 @@ const LogIn = ({ navigation }) => {
     }
   }
 
-
+  // Form View with TextInputs
   const FormView = () => {
     return (
       <ScrollView>
@@ -60,8 +111,8 @@ const LogIn = ({ navigation }) => {
               value={email}
               maxLength={60}
               onChangeText={value => setEmail(value)}
-              ref={(input) => { this.emailTextInput = input; }}
-              onSubmitEditing={() => { Keyboard.dismiss() }}
+              returnKeyType="next"
+              onSubmitEditing={() => { this.passwordTextInput.focus(); }}
               blurOnSubmit={false}
             />
             <Text style={SignUpStyle.errorText}>{emailError}</Text>
@@ -76,7 +127,8 @@ const LogIn = ({ navigation }) => {
               value={password}
               maxLength={16}
               onChangeText={value => setPassword(value)}
-              onSubmitEditing={() => { this.confPasswordTextInput.focus(); }}
+              ref={(input) => { this.passwordTextInput = input; }}
+              onSubmitEditing={() => { Keyboard.dismiss(); }}
               blurOnSubmit={false}
             />
             <Text style={SignUpStyle.errorText}>{passwordError}</Text>
@@ -86,27 +138,38 @@ const LogIn = ({ navigation }) => {
     );
   }
 
-
   return (
     <SafeAreaView style={SignUpStyle.safeAreaView}>
-      <StatusBar translucent barStyle="light-content" />
+      <StatusBar backgroundColor={color.primary} barStyle="light-content" />
+      {/* Header Component */}
       <AuthHeader headingText={'Log In'} />
       <View style={SignUpStyle.mainView}>
+        {/* Form view */}
         {FormView()}
+        {/* Authentication Submit Button */}
         <AuthButton
           buttonText={'Log In'}
-          ValidateFn={() => FormValidation()}
+          ValidateFn={() => AuthenticateUser()}
         />
-        <View style={LogInStyle.bottomView}>
-          <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
-            <Text style={LogInStyle.bottomLink}>Forgot Password</Text>
+
+        {/* Forgot password View */}
+        <View style={LogInStyle.forgotPasswordView}>
+          <TouchableOpacity onPress={() => navigation.push('AuthNavigation', { screen: 'ForgotPassword' })}>
+            <Text style={LogInStyle.bottomLink}>{`Forgot your password?`}</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-            <Text style={LogInStyle.bottomLink}>Create a new Account</Text>
+        </View>
+
+        {/* Sign Up View */}
+        <View style={LogInStyle.createAccountView}>
+          <Text style={LogInStyle.signUpText}>{`Don't have an account?`}</Text>
+          <TouchableOpacity
+            style={LogInStyle.signUpButton}
+            onPress={() => navigation.push('AuthNavigation', { screen: 'SignUp' })}>
+            <Text style={LogInStyle.signUpLink}>{`Sign UP`}</Text>
           </TouchableOpacity>
         </View>
       </View>
-    </SafeAreaView>
+    </SafeAreaView >
   );
 }
 

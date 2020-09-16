@@ -1,6 +1,7 @@
 export const color = {
   primary: "#4c00ff",
   white: "#fff",
+  background: '#dbdbdb',
   headerText: '#fff',
   buttonText: '#fff',
   black: "#000",

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ViewStyle, Image } from 'react-native';
+import { View, Text, StyleSheet, ViewStyle, Image, StatusBar } from 'react-native';
 import { color } from '../theme';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -19,7 +19,7 @@ const AuthHeader = (props) => {
               <TouchableOpacity
                 onPress={() => navigation.goBack()}
               >
-                <Image source={icons.back} style={{ height: 20, width: 'auto', tintColor: '#fff' }} />
+                <Image source={icons.back} style={Styles.icon} />
               </TouchableOpacity>
               : <View></View>}
           </View>
@@ -48,8 +48,14 @@ const Styles = StyleSheet.create({
   headerView: {
     height: 50,
     backgroundColor: color.primary,
+    // paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight
     // flexDirection: 'row'
     // alignItems: 'center',
+  },
+  icon: {
+    height: 20,
+    width: 'auto',
+    tintColor: color.white
   },
   headerTextView: {
     flex: 6,

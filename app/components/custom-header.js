@@ -19,7 +19,7 @@ const CustomHeader = (props) => {
               <TouchableOpacity
                 onPress={() => navigation.goBack()}
               >
-                <Image source={icons.back} style={{ height: 20, width: 'auto', tintColor: '#fff' }} />
+                <Image source={icons.back} style={Styles.icon} />
               </TouchableOpacity>
               : <View></View>}
           </View>
@@ -51,6 +51,11 @@ const Styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     paddingHorizontal: 5,
+  },
+  icon: {
+    height: 20,
+    width: 'auto',
+    tintColor: color.primary
   },
   thirdView: {
     flex: 1,

@@ -28,7 +28,7 @@ const DateSelect = (props) => {
             borderColor: (errorMessage == '' ? color.formInputBorder : color.errorText),
             borderRadius: 4,
             borderLeftWidth: 7,
-            paddingHorizontal: 8,
+            paddingHorizontal: (Platform.OS == 'ios' ? 12 : 8),
             textAlign: 'left',
             paddingVertical: 8,
             alignItems: 'flex-start',
